@@ -1,6 +1,0 @@
-﻿  CGeoLayer.cpp
-  CGeoPoint.cpp
-E:\GIS实习\数据结构0923\CGeoPoint.cpp(21,16): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-E:\GIS实习\数据结构0923\CGeoPoint.cpp(21,9): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-  正在生成代码...
-  数据结构0923.vcxproj -> E:\GIS实习\数据结构0923\x64\Debug\数据结构2025.exe
