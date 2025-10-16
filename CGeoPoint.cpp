@@ -7,12 +7,13 @@
 
 using namespace std;
 
-#define isTextMode  false
+
 #define WIDTH 600
 #define HEIGHT 800
 
 #define Fx(x) (x - 72.0 ) / (136.0 -72.0 ) *  WIDTH
 #define Fy(y) HEIGHT - (y - 4.0 ) / (54.0 -4.0 ) *  HEIGHT
+
 
 
 

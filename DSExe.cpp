@@ -6,7 +6,7 @@
 #include "CGeoLayer.h"
 #include "CGeoPoint.h"
 
-using namespace std;
+
 
 
 int main()
@@ -16,7 +16,7 @@ int main()
 
 	layer.ReadData("E:\\GIS实习\\实习数据\\chnCities.txt");
 	// layer.Search();
-	layer.PrintLayer();
+	//layer.PrintLayer();
 	layer.DrawLayer();
 
 }

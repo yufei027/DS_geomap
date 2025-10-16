@@ -9,6 +9,7 @@
 #include "CGeoLayer.h"
 #include "CGeoObject.h"
 #include "CGeoPoint.h"
+#include "CGeoPolyline.h"
 
 using namespace std;
 
@@ -21,42 +22,55 @@ using namespace std;
 #define Fy(y) HEIGHT - (y - 4.0 ) / (54.0 -4.0 ) *  HEIGHT
 
 
-void CGeoLayer::ReadData(const std::string& filename) {
-	std::vector<CGeoPoint> points;
-	points.clear();
-	int size = 0;
-	
+void CGeoLayer::ReadData(const string& filename) {
 
 	std::ifstream file(filename, ios_base::in); // 只读
 	if (!file.is_open()) {
 		std::cerr << "文件打开失败！" << std::endl;
 		return;
 	}
-	std::string line;
 
-	while (std::getline(file, line)) {
+	string line;
+	string ext = filename.substr(filename.find_last_of('.') + 1);
 
-		istringstream istrStream(line);
-		/*
-		CGeoPoint p;
-		istrStream >> p.id >>p.x >> p.y >> p.chnName;
-		points.push_back(p);
-		
-		std::cout << "id=" << p.id
-			<< "   x=" << p.x
-			<< "   y=" << p.y
-			<< "   chnName=" << p.chnName
-			<< std::endl;
+	if (ext == "txt" || ext == "TXT") {// 点文件读取
+		while (getline(file, line)) { 
+			
+			istringstream istrStream(line);
+			CGeoPoint* obj = new CGeoPoint;
+			istrStream >> obj->id >> obj->x >> obj->y >> obj->chnName;
 
-		size++;
-		*/
-		CGeoPoint* obj = new CGeoPoint;
-		istrStream >> obj->id >> obj->x >> obj->y >> obj->chnName;
-		// layer.AddObject(obj);
-
-		this->AddObject(obj);  // 成员函数内部，用 this 指针访问对象的成员即可
+			AddObject(obj);
+			//delete obj;
+		}
 	}
-	
+	else if (ext == "mif" || ext == "MIF") {
+
+		while (getline(file, line)) { // 跳过头部
+			if (line.empty()) continue;
+			if (line == "DATA") break; 
+		}
+
+		while (getline(file, line)) { // 线文件读取
+			if (line.empty()) continue;
+
+			istringstream istrStream(line);
+			CGeoPolyline* obj = new CGeoPolyline;
+
+			double x, y;
+			CGeoPoint pt;
+			if (!(istrStream >> x >> y)) break; // // 遇到非坐标行就结束
+			istrStream >> x >> y; pt.x = x; pt.y = y;
+
+			obj->points.push_back(pt);
+			
+			AddObject(obj);
+			//delete obj;
+
+		}
+	}
+
+
 	file.close();
 
 }
@@ -90,7 +104,7 @@ void CGeoLayer::AddObject(CGeoObject* obj) // 在最后add
 	while (current->next != nullptr) {
 		current = current->next;
 	}
-	current->next = newNode;
+	current->next = newNode;  
 }
 
 void CGeoLayer::Search(CPoint1 pt, double dist) {
@@ -101,19 +115,33 @@ void CGeoLayer::DrawLayer() {
 	setcolor(RGB(255, 0, 0));
 
 	Node* currentNode = m_head;
-	while (currentNode != nullptr) {
+	while (currentNode) {
 		currentNode->data->Draw(); // 调用对象的draw方法
 		currentNode = currentNode->next;
 	}
 
-	_getch();
+	(void)_getch();
 	closegraph();
 }
 
 void CGeoLayer::PrintLayer() {
 	Node* currentNode = m_head;
-	while (currentNode != nullptr) {
+	while (currentNode) {
 		currentNode->data->Print();
 		currentNode = currentNode->next;
 	}
-};
+}
+
+CGeoLayer::~CGeoLayer() {
+
+	Node* current = m_head;
+	while (current) {
+		Node* next = current->next;
+		delete current->data; // 释放对象
+		delete current; // 释放节点
+		current = next;
+	}
+}
+
+;
+

@@ -11,8 +11,6 @@ public:
 
 	// std::vector<CGeoPoint> points; 
 
-	int count;
-
 
 	void ReadData(const std::string& filename);
 	void Search(CPoint1 pt, double dist);
@@ -29,5 +27,7 @@ public:
 		Node(CGeoObject* d) : data(d), next(nullptr) {}
 	};
 	Node* m_head = nullptr; // 头指针 第一个节点的位置
+
+	~CGeoLayer();
 };
 

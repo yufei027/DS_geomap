@@ -5,7 +5,7 @@ class CGeoPoint : public CGeoObject {
 public:
 
 	int id;
-	int count;
+	int type;
 	double x, y;	
 	char chnName[40];
 	char engName[40];
@@ -14,5 +14,7 @@ public:
 
 	void Draw() override ;
 	void Print() override ;
+
+	// CGeoPoint(double xVal, double yVal): x(xVal), y(yVal) {}
 };
 
