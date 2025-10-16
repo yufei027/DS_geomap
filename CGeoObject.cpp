@@ -6,10 +6,3 @@
 
 using namespace std; 
 
-void CGeoObject::ReadObject() {
-
-}
-
-void CGeoObject::Output() {
-	for (int i = 0; i < count; i++) {}
-}

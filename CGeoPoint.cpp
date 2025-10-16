@@ -1,8 +1,11 @@
 #include <graphics.h>
 #include <conio.h>
-
+#include <iostream>
+#include <fstream>
+#include <sstream>
 #include "CGeoPoint.h"
 
+using namespace std;
 
 #define isTextMode  false
 #define WIDTH 600
@@ -12,17 +15,17 @@
 #define Fy(y) HEIGHT - (y - 4.0 ) / (54.0 -4.0 ) *  HEIGHT
 
 
-void CGeoPoint::Draw(Node* head) //  输入的是points，一个链表
-{
 
-	initgraph(HEIGHT, WIDTH);	// 创建绘图窗口，大小为 HEIGHT x WIDTH 像素
-	setcolor(RGB(255, 0, 0));
+void CGeoPoint::Draw(){
 
-	for (int i = 0; i < points.size(); i++) {
-		circle(Fx(points.x), Fy(points.y), 2);
-	}
+	circle(Fx(x), Fy(y), 2);
+}
 
-	_getch();
-	closegraph();
+void CGeoPoint::Print() {
+	std::cout 
+		<< "PointId=" << id
+		<< "	x=" << x
+		<< "	y=" << y
+		<< "	name=" << chnName << std::endl;
 
 }

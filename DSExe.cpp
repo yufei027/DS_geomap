@@ -14,8 +14,9 @@ int main()
 	int size = 350;
 	CGeoLayer layer;
 
-	layer.ReadData();
+	layer.ReadData("E:\\GIS实习\\实习数据\\chnCities.txt");
 	// layer.Search();
-	// layer.Output();
+	layer.PrintLayer();
+	layer.DrawLayer();
 
 }

@@ -10,6 +10,9 @@ public:
 	char chnName[40];
 	char engName[40];
 
-	void Draw();
+
+
+	void Draw() override ;
+	void Print() override ;
 };
 

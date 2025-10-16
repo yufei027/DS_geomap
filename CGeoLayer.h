@@ -9,17 +9,17 @@ class CGeoLayer
 {
 public:
 
-	std::vector<CGeoPoint> points; 
-	// CGeoPoint* pts = new CGeoPoint[350];
+	// std::vector<CGeoPoint> points; 
 
 	int count;
 
 
-	void ReadData();
+	void ReadData(const std::string& filename);
 	void Search(CPoint1 pt, double dist);
-	void Output();
-
+	
+	void PrintLayer();
 	void DrawLayer();
+
 	void AddObject(CGeoObject* obj);
 
 

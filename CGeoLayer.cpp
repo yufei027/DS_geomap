@@ -13,7 +13,7 @@
 using namespace std;
 
 
-#define isTextMode  false
+
 #define WIDTH 600
 #define HEIGHT 800
 
@@ -21,72 +21,49 @@ using namespace std;
 #define Fy(y) HEIGHT - (y - 4.0 ) / (54.0 -4.0 ) *  HEIGHT
 
 
-void CGeoLayer::ReadData() {
+void CGeoLayer::ReadData(const std::string& filename) {
+	std::vector<CGeoPoint> points;
 	points.clear();
 	int size = 0;
 	
 
-	ifstream file("E:\\GIS实习\\实习数据\\chnCities.txt", ios_base::in);
+	std::ifstream file(filename, ios_base::in); // 只读
 	if (!file.is_open()) {
 		std::cerr << "文件打开失败！" << std::endl;
 		return;
 	}
 	std::string line;
 
-	if (!isTextMode) {
-
-		initgraph(HEIGHT, WIDTH);	// 创建绘图窗口，大小为 HEIGHT x WIDTH 像素
-		setcolor(RGB(255, 0, 0));
-	}
-
 	while (std::getline(file, line)) {
 
 		istringstream istrStream(line);
+		/*
 		CGeoPoint p;
 		istrStream >> p.id >>p.x >> p.y >> p.chnName;
 		points.push_back(p);
-
-
-
-		if (isTextMode) {
-
-			std::cout << "id=" << p.id
-				<< "   x=" << p.x
-				<< "   y=" << p.y
-				<< "   chnName=" << p.chnName
-				<< std::endl;
-		}
-		else {
-			// circle(Fx(pts[size].x), Fy(pts[size].y), 2);
-			circle(Fx(p.x), Fy(p.y), 2);
-		}
+		
+		std::cout << "id=" << p.id
+			<< "   x=" << p.x
+			<< "   y=" << p.y
+			<< "   chnName=" << p.chnName
+			<< std::endl;
 
 		size++;
+		*/
+		CGeoPoint* obj = new CGeoPoint;
+		istrStream >> obj->id >> obj->x >> obj->y >> obj->chnName;
+		// layer.AddObject(obj);
 
+		this->AddObject(obj);  // 成员函数内部，用 this 指针访问对象的成员即可
 	}
 	
 	file.close();
 
-	if (!isTextMode) {
-
-		_getch();				// 按任意键继续
-		closegraph();			// 关闭绘图窗口
-	}
-
 }
 
 
 
-void CGeoLayer::Search(CPoint1 pt, double dist) {
-}
 
-void CGeoLayer::DrawLayer() {
-	Node* currentNode = m_head;
-	while (currentNode != nullptr) {
-		currentNode->data->Draw(); // 调用对象的draw方法
-		currentNode = currentNode->next;
-	}
-}
 
 /*
 void CGeoLayer::AddObject(CGeoObject* obj) // 在最前面add
@@ -103,7 +80,6 @@ void CGeoLayer::AddObject(CGeoObject* obj) // 在最前面add
 void CGeoLayer::AddObject(CGeoObject* obj) // 在最后add
 {	
 	if (obj == nullptr) return;
-
 	Node* newNode = new Node(obj);
 	if (m_head == nullptr) { // 如果为空指针，newNode就变成第一个节点
 		m_head = newNode;
@@ -117,15 +93,27 @@ void CGeoLayer::AddObject(CGeoObject* obj) // 在最后add
 	current->next = newNode;
 }
 
+void CGeoLayer::Search(CPoint1 pt, double dist) {
+}
 
-void CGeoLayer::Output() {
-	std::cout << "Output函数";
-	for(int i=0 ; i<points.size() ; i++){
+void CGeoLayer::DrawLayer() {
+	initgraph(HEIGHT, WIDTH);	// 创建绘图窗口，大小为 HEIGHT x WIDTH 像素
+	setcolor(RGB(255, 0, 0));
 
-		std::cout<< "id=" << points[i].id
-			<< "   x=" << points[i].x
-			<< "   y=" << points[i].y
-			<< "   chnName=" << points[i].chnName
-			<< std::endl;
+	Node* currentNode = m_head;
+	while (currentNode != nullptr) {
+		currentNode->data->Draw(); // 调用对象的draw方法
+		currentNode = currentNode->next;
+	}
+
+	_getch();
+	closegraph();
+}
+
+void CGeoLayer::PrintLayer() {
+	Node* currentNode = m_head;
+	while (currentNode != nullptr) {
+		currentNode->data->Print();
+		currentNode = currentNode->next;
 	}
 };
