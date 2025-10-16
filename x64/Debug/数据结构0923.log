@@ -1,0 +1,17 @@
+﻿  CGeoLayer.cpp
+E:\GIS实习\数据结构0923\CGeoLayer.cpp(45,13): error C2259: “CGeoPoint”: 无法实例化抽象类
+  E:\GIS实习\数据结构0923\CGeoPoint.h(4,7):
+  参见“CGeoPoint”的声明
+  E:\GIS实习\数据结构0923\CGeoLayer.cpp(45,13):
+  由于下列成员:
+  E:\GIS实习\数据结构0923\CGeoLayer.cpp(45,13):
+  “void CGeoObject::Draw(void)”: 是抽象的
+  E:\GIS实习\数据结构0923\CGeoObject.h(11,15):
+  参见“CGeoObject::Draw”的声明
+  
+E:\GIS实习\数据结构0923\CGeoLayer.cpp(61,20): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+E:\GIS实习\数据结构0923\CGeoLayer.cpp(61,11): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+  CGeoObject.cpp
+  CGeoPoint.cpp
+  DSExe.cpp
+  正在生成代码...
