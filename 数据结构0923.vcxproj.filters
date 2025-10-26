@@ -36,6 +36,9 @@
     <ClInclude Include="GeoLinkedList.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="CProjMercator.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DSExe.cpp">
@@ -54,6 +57,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="CGeoPolyline.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CMapProj.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CProjMercator.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

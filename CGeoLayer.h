@@ -3,7 +3,7 @@
 #include "CPoint1.h"
 #include "GeoLinkedList.h"
 #include <vector>
-
+#include "CMapProj.h"
 class CGeoLayer
 {
 public:
@@ -12,12 +12,12 @@ public:
 	void Search(CPoint1 pt, double dist);
 	
 	void PrintLayer();
-	void DrawLayer();
+	void DrawLayer(const CMapProj* proj);
 
 	void AddObject(CGeoObject* obj);
 
-
-	Node* m_head = nullptr; // 头指针 第一个节点的位置
+	void ReverseLinkedList(); // 反转链表
+	Node<CGeoObject>* m_head = nullptr; // 头指针 第一个节点的位置
 
 	CGeoLayer();
 	~CGeoLayer();

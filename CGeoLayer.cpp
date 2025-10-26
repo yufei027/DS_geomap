@@ -12,7 +12,7 @@
 #include "CGeoPolyline.h"
 #include "CPoint1.h"
 #include "GeoLinkedList.h"
-
+#include "CMapProj.h"
 using namespace std;
 
 
@@ -52,7 +52,7 @@ void CGeoLayer::ReadData(const string& filename) {
 			if (line.empty()) continue;
 			if (line.find("Data") != string::npos) break;
 		}
-		int id = 0;
+		int id = 1;
 
 		// 外层循环：读取每个 polyline
 		while (getline(file, line)) {
@@ -92,6 +92,10 @@ void CGeoLayer::ReadData(const string& filename) {
 	file.close();
 }
 
+void CGeoLayer::Search(CPoint1 pt, double dist)
+{
+}
+
 
 
 
@@ -111,13 +115,13 @@ void CGeoLayer::AddObject(CGeoObject* obj) // 从前面add
 void CGeoLayer::AddObject(CGeoObject* obj) // 从后面add
 {	
 	if (obj == nullptr) return;
-	Node* newNode = new Node(obj);
+	Node<CGeoObject>* newNode = new Node<CGeoObject>(obj);
 	if (m_head == nullptr) {
 		m_head = newNode;
 		return;
 	}
 
-	Node* current = m_head;
+	Node<CGeoObject>* current = m_head;
 	while (current->next != nullptr) {
 		current = current->next;
 	}
@@ -126,13 +130,14 @@ void CGeoLayer::AddObject(CGeoObject* obj) // 从后面add
 
 
 
-void CGeoLayer::DrawLayer() {
+
+void CGeoLayer::DrawLayer(const CMapProj* proj) {
 	initgraph(HEIGHT, WIDTH);
 	setcolor(RGB(255, 0, 0));
 
-	Node* current = m_head;
+	Node<CGeoObject>* current = m_head;
 	while (current) {
-		current->data->Draw();
+		current->data->Draw(proj);
 		current = current->next;
 	}
 
@@ -141,12 +146,30 @@ void CGeoLayer::DrawLayer() {
 }
 
 void CGeoLayer::PrintLayer() {
-	Node* current = m_head;
+	Node<CGeoObject>* current = m_head;
 	while (current) {
 		current->data->Print();
 		current = current->next;
 	}
 }
+
+
+void CGeoLayer::ReverseLinkedList()
+{
+	Node<CGeoObject>* prev = nullptr;
+	Node<CGeoObject>* current = m_head;
+	Node<CGeoObject>* next = nullptr;
+
+	while (current != nullptr) {
+		next = current->next;
+		current->next = prev;
+		prev = current;
+		current = next;
+	}
+
+	m_head = prev;
+}
+
 
 CGeoLayer::CGeoLayer()
 {
@@ -155,9 +178,9 @@ CGeoLayer::CGeoLayer()
 
 CGeoLayer::~CGeoLayer() {
 
-	Node* current = m_head;
+	Node<CGeoObject>* current = m_head;
 	while (current) {
-		Node* next = current->next;
+		Node<CGeoObject>* next = current->next;
 		delete current->data;
 		delete current;
 		current = next;

@@ -4,6 +4,7 @@
 #include "CGeoObject.h"
 #include "CGeoPoint.h"
 #include "CGeoLayer.h"
+#include "CMapProj.h"
 class CGeoPolyline :public CGeoObject{
 public:
 
@@ -11,10 +12,11 @@ public:
 	int type = 0;
 	int pointCount = 0;
 
-	Node* plineHead;  // 用链表存储折线点
+	Node<CPoint1>* plineHead;  // 用链表存储折线点
 
 	void AddPoint(CPoint1* pt); // 添加点到链表
-	void Draw() override;
+	void Draw(const CMapProj* proj) override;
 	void Print() override;
+	void ReverseLinkedList(); // 反转折线点链表
 };
 

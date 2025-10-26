@@ -5,6 +5,7 @@
 #include <conio.h>
 #include "CGeoLayer.h"
 #include "CGeoPoint.h"
+#include "CProjMercator.h"
 using namespace std;
 
 
@@ -13,14 +14,17 @@ using namespace std;
 int main()
 {
 	CGeoLayer layer;
+	CProjMercator mercator;
 
 	string chinaBoundaryL = "E:\\GIS实习\\实习数据\\chinaBoundaryL.mif";
 	string chnCities = "E:\\GIS实习\\实习数据\\chnCities.txt";
 
 	layer.ReadData(chinaBoundaryL);
-	layer.DrawLayer();
+	layer.DrawLayer(&mercator);
 
 	// layer.Search();
 	layer.PrintLayer();
 
+
+	return 0;
 }

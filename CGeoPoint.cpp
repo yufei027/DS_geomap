@@ -4,7 +4,7 @@
 #include <fstream>
 #include <sstream>
 #include "CGeoPoint.h"
-
+#include "CMapProj.h"
 using namespace std;
 
 
@@ -17,8 +17,11 @@ using namespace std;
 
 
 
-void CGeoPoint::Draw(){
-	circle(Fx(x), Fy(y), 2);
+void CGeoPoint::Draw(const CMapProj* proj){
+	//circle(Fx(x), Fy(y), 2);
+	CPoint1 p = proj->Project(x, y);
+	circle(Fx(p.x), Fy(p.y), 2);
+
 }
 
 void CGeoPoint::Print() {
@@ -28,5 +31,4 @@ void CGeoPoint::Print() {
 		<< "	y=" << y
 		<< "	name=" << chnName 
 		<< std::endl;
-
 }

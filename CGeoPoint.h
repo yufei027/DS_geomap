@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include "CGeoObject.h"
+#include "CMapProj.h"
 class CGeoPoint : public CGeoObject {
 public:
 
@@ -12,7 +13,7 @@ public:
 
 
 
-	void Draw() override ;
+	void Draw(const CMapProj* proj) override ;
 	void Print() override ;
 
 };
