@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <graphics.h>		// 引用图形库头文件
+#include <graphics.h>		
 #include <conio.h>
 #include <windows.h>
 #include <vector>
@@ -10,6 +10,8 @@
 #include "CGeoObject.h"
 #include "CGeoPoint.h"
 #include "CGeoPolyline.h"
+#include "CPoint1.h"
+#include "GeoLinkedList.h"
 
 using namespace std;
 
@@ -24,16 +26,16 @@ using namespace std;
 
 void CGeoLayer::ReadData(const string& filename) {
 
-	std::ifstream file(filename, ios_base::in); // 只读
+	std::ifstream file(filename, ios_base::in);
 	if (!file.is_open()) {
-		std::cerr << "文件打开失败！" << std::endl;
+		std::cerr << "无法打开" << std::endl;
 		return;
 	}
 
 	string line;
 	string ext = filename.substr(filename.find_last_of('.') + 1);
 
-	if (ext == "txt" || ext == "TXT") {// 点文件读取
+	if (ext == "txt" || ext == "TXT") {
 		while (getline(file, line)) { 
 			
 			istringstream istrStream(line);
@@ -46,33 +48,48 @@ void CGeoLayer::ReadData(const string& filename) {
 	}
 	else if (ext == "mif" || ext == "MIF") {
 
-		while (getline(file, line)) { // 跳过头部
+		while (getline(file, line)) {
 			if (line.empty()) continue;
-			if (line == "DATA") break; 
+			if (line.find("Data") != string::npos) break;
 		}
+		int id = 0;
 
-		while (getline(file, line)) { // 线文件读取
+		// 外层循环：读取每个 polyline
+		while (getline(file, line)) {
 			if (line.empty()) continue;
 
-			istringstream istrStream(line);
-			CGeoPolyline* obj = new CGeoPolyline;
 
-			double x, y;
-			CGeoPoint pt;
-			if (!(istrStream >> x >> y)) break; // // 遇到非坐标行就结束
-			istrStream >> x >> y; pt.x = x; pt.y = y;
+			// 检测到 Pline 开头，开始读取一个新的 polyline
+			if (line.find("Pline") != string::npos || 
+				line.find("pline") != string::npos) {
+				CGeoPolyline* obj = new CGeoPolyline;
 
-			obj->points.push_back(pt);
-			
-			AddObject(obj);
-			//delete obj;
+				istringstream plineStream(line); // 点的数量
+				string keyword;
+				int pointCount = 0;
+				plineStream >> keyword >> pointCount;
+				obj->pointCount = pointCount;
+				obj->id = id++;
 
+				// 内层循环：读取 polyline 的点
+				while (std::getline(file, line)) {
+					if (line.empty()) continue;
+					if (line.find("Pen") != string::npos) break;
+
+
+					istringstream istrStream(line);
+					double x, y;
+					if (!(istrStream >> x >> y)) continue;
+					CPoint1* pt = new CPoint1(x, y);
+					obj->AddPoint(pt);
+
+				}
+				AddObject(obj);
+			}
 		}
 	}
 
-
 	file.close();
-
 }
 
 
@@ -80,26 +97,26 @@ void CGeoLayer::ReadData(const string& filename) {
 
 
 /*
-void CGeoLayer::AddObject(CGeoObject* obj) // 在最前面add
+void CGeoLayer::AddObject(CGeoObject* obj) // 从前面add
 {
 	if(obj == nullptr) return;
 
 	Node* newNode = new Node(obj);
-	newNode->next = m_head; // 让它指向（原来的）第一个节点
-	m_head = newNode; // 它现在变成第一个节点
+	newNode->next = m_head;
+	m_head = newNode;
 }
 
 */
 
-void CGeoLayer::AddObject(CGeoObject* obj) // 在最后add
+void CGeoLayer::AddObject(CGeoObject* obj) // 从后面add
 {	
 	if (obj == nullptr) return;
 	Node* newNode = new Node(obj);
-	if (m_head == nullptr) { // 如果为空指针，newNode就变成第一个节点
+	if (m_head == nullptr) {
 		m_head = newNode;
 		return;
 	}
-	// 如果不是空指针，就要添加到后面
+
 	Node* current = m_head;
 	while (current->next != nullptr) {
 		current = current->next;
@@ -107,17 +124,16 @@ void CGeoLayer::AddObject(CGeoObject* obj) // 在最后add
 	current->next = newNode;  
 }
 
-void CGeoLayer::Search(CPoint1 pt, double dist) {
-}
+
 
 void CGeoLayer::DrawLayer() {
-	initgraph(HEIGHT, WIDTH);	// 创建绘图窗口，大小为 HEIGHT x WIDTH 像素
+	initgraph(HEIGHT, WIDTH);
 	setcolor(RGB(255, 0, 0));
 
-	Node* currentNode = m_head;
-	while (currentNode) {
-		currentNode->data->Draw(); // 调用对象的draw方法
-		currentNode = currentNode->next;
+	Node* current = m_head;
+	while (current) {
+		current->data->Draw();
+		current = current->next;
 	}
 
 	(void)_getch();
@@ -125,11 +141,16 @@ void CGeoLayer::DrawLayer() {
 }
 
 void CGeoLayer::PrintLayer() {
-	Node* currentNode = m_head;
-	while (currentNode) {
-		currentNode->data->Print();
-		currentNode = currentNode->next;
+	Node* current = m_head;
+	while (current) {
+		current->data->Print();
+		current = current->next;
 	}
+}
+
+CGeoLayer::CGeoLayer()
+{
+
 }
 
 CGeoLayer::~CGeoLayer() {
@@ -137,8 +158,8 @@ CGeoLayer::~CGeoLayer() {
 	Node* current = m_head;
 	while (current) {
 		Node* next = current->next;
-		delete current->data; // 释放对象
-		delete current; // 释放节点
+		delete current->data;
+		delete current;
 		current = next;
 	}
 }

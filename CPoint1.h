@@ -1,5 +1,5 @@
 #pragma once
-struct CPoint1
+class CPoint1
 {
 public:
 	int type;

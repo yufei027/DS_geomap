@@ -1,22 +1,26 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <graphics.h>		// 引用图形库头文件
+#include <graphics.h>
 #include <conio.h>
 #include "CGeoLayer.h"
 #include "CGeoPoint.h"
+using namespace std;
 
 
 
 
 int main()
 {
-	int size = 350;
 	CGeoLayer layer;
 
-	layer.ReadData("E:\\GIS实习\\实习数据\\chnCities.txt");
-	// layer.Search();
-	//layer.PrintLayer();
+	string chinaBoundaryL = "E:\\GIS实习\\实习数据\\chinaBoundaryL.mif";
+	string chnCities = "E:\\GIS实习\\实习数据\\chnCities.txt";
+
+	layer.ReadData(chinaBoundaryL);
 	layer.DrawLayer();
+
+	// layer.Search();
+	layer.PrintLayer();
 
 }

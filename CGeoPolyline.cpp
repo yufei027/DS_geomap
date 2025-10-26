@@ -1,7 +1,11 @@
 #include <graphics.h>
 #include <iostream>
+#include <iomanip>
 
 #include "CGeoPolyline.h"
+#include "CGeoObject.h"
+#include "CGeoLayer.h"
+#include "GeoLinkedList.h"
 
 #define WIDTH 600
 #define HEIGHT 800
@@ -11,19 +15,56 @@
 
 
 
+void CGeoPolyline::AddPoint(CPoint1* pt)
+{
+	if (pt == nullptr) return;
+
+	Node* newNode = new Node(pt);
+	if (plineHead == nullptr) {
+        plineHead = newNode;
+		return;
+	}
+
+	Node* current = plineHead;
+	while (current->next != nullptr) {
+		current = current->next;
+	}
+	current->next = newNode;
+}
+
 void CGeoPolyline::Draw()
 {
-	moveto(Fx(points[0].x), Fy(points[0].y));
+    if (!plineHead) return;
 
-    for (int i = 1; i < points.size(); ++i) {
-        lineto(Fx(points[i].x), Fy(points[i].y));
+    Node* current = plineHead;
+    CPoint1* firstPt = current->ptdata;
+    if (!firstPt) return;
+    moveto(Fx(firstPt->x), Fy(firstPt->y));
+    /*
+    if (plineHead == nullptr || plineHead->ptdata == nullptr) return;
+    moveto(Fx(plineHead->ptdata->x), Fy(plineHead->ptdata->y));
+    */
+
+    while (current) {
+        CPoint1* pt = current->ptdata;
+        if (!pt) return; 
+        lineto(Fx(pt->x), Fy(pt->y));
+
+        current = current->next;
     }
 }
 
 void CGeoPolyline::Print()
 {
-    std::cout << "Polyline: ";
-    for (auto& p : points)
-        //std::cout << "(" << p.x << "," << p.y << ") ";
-    std::cout << std::endl;
+    std::cout 
+        << "Polyline: ID=" << id << " has " << pointCount << " points." << std::endl;
+
+    Node* current = plineHead;
+    while (current) {
+        CPoint1* pt = current->ptdata;
+        if (pt) {
+            //std::cout << std::fixed << std::setprecision(2)<< "Point: x=" << pt->x << ", y=" << pt->y << std::endl;
+        }
+        current = current->next;
+    }
 }

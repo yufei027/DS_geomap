@@ -18,15 +18,15 @@ using namespace std;
 
 
 void CGeoPoint::Draw(){
-
 	circle(Fx(x), Fy(y), 2);
 }
 
 void CGeoPoint::Print() {
 	std::cout 
-		<< "PointId=" << id
+		<< "Point	Id=" << id
 		<< "	x=" << x
 		<< "	y=" << y
-		<< "	name=" << chnName << std::endl;
+		<< "	name=" << chnName 
+		<< std::endl;
 
 }

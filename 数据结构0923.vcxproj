@@ -133,6 +133,8 @@
     <ClInclude Include="CGeoPoint.h" />
     <ClInclude Include="CGeoPolyline.h" />
     <ClInclude Include="CPoint1.h" />
+    <ClInclude Include="CMapProj.h" />
+    <ClInclude Include="GeoLinkedList.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CGeoLayer.cpp" />
@@ -141,7 +143,6 @@
     <ClCompile Include="CGeoPolyline.cpp" />
     <ClCompile Include="CPoint1.cpp" />
     <ClCompile Include="DSExe.cpp" />
-    <ClCompile Include="test.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -30,6 +30,12 @@
     <ClInclude Include="CGeoPolyline.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="CMapProj.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="GeoLinkedList.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DSExe.cpp">
@@ -48,9 +54,6 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="CGeoPolyline.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="test.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
