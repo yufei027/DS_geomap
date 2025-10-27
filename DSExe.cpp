@@ -15,12 +15,13 @@ int main()
 {
 	CGeoLayer layer;
 	CProjMercator mercator;
+	CViewPort view;
 
 	string chinaBoundaryL = "E:\\GIS实习\\实习数据\\chinaBoundaryL.mif";
 	string chnCities = "E:\\GIS实习\\实习数据\\chnCities.txt";
 
 	layer.ReadData(chinaBoundaryL);
-	layer.DrawLayer(&mercator);
+	layer.DrawLayer(&view, &mercator);
 
 	// layer.Search();
 	layer.PrintLayer();

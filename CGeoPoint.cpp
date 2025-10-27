@@ -5,22 +5,15 @@
 #include <sstream>
 #include "CGeoPoint.h"
 #include "CMapProj.h"
+#include "CViewPort.h"
 using namespace std;
 
 
-#define WIDTH 600
-#define HEIGHT 800
 
-#define Fx(x) (x - 72.0 ) / (136.0 -72.0 ) *  WIDTH
-#define Fy(y) HEIGHT - (y - 4.0 ) / (54.0 -4.0 ) *  HEIGHT
-
-
-
-
-void CGeoPoint::Draw(const CMapProj* proj){
+void CGeoPoint::Draw(CViewPort* view, const CMapProj* proj){
 	//circle(Fx(x), Fy(y), 2);
 	CPoint1 p = proj->Project(x, y);
-	circle(Fx(p.x), Fy(p.y), 2);
+	circle(view->Fx(p.x), view->Fy(p.y), 2);
 
 }
 

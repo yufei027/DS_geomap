@@ -2,6 +2,7 @@
 #include <string>
 #include "CGeoObject.h"
 #include "CMapProj.h"
+#include "CViewPort.h"
 class CGeoPoint : public CGeoObject {
 public:
 
@@ -13,7 +14,7 @@ public:
 
 
 
-	void Draw(const CMapProj* proj) override ;
+	void Draw(CViewPort* view, const CMapProj* proj) override ;
 	void Print() override ;
 
 };

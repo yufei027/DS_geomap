@@ -4,15 +4,17 @@
 #include "GeoLinkedList.h"
 #include <vector>
 #include "CMapProj.h"
+#include "CViewPort.h"
 class CGeoLayer
 {
 public:
+	CViewPort viewport; // ´æ´¢Õû¸öÍ¼²ãµÄ·¶Î§
 
 	void ReadData(const std::string& filename);
 	void Search(CPoint1 pt, double dist);
 	
 	void PrintLayer();
-	void DrawLayer(const CMapProj* proj);
+	void DrawLayer(CViewPort* view, const CMapProj* proj);
 
 	void AddObject(CGeoObject* obj);
 

@@ -132,6 +132,7 @@
     <ClInclude Include="CGeoObject.h" />
     <ClInclude Include="CGeoPoint.h" />
     <ClInclude Include="CGeoPolyline.h" />
+    <ClInclude Include="CViewPort.h" />
     <ClInclude Include="CPoint1.h" />
     <ClInclude Include="CMapProj.h" />
     <ClInclude Include="CProjMercator.h" />
@@ -142,6 +143,7 @@
     <ClCompile Include="CGeoObject.cpp" />
     <ClCompile Include="CGeoPoint.cpp" />
     <ClCompile Include="CGeoPolyline.cpp" />
+    <ClCompile Include="CViewPort.cpp" />
     <ClCompile Include="CMapProj.cpp" />
     <ClCompile Include="CPoint1.cpp" />
     <ClCompile Include="CProjMercator.cpp" />

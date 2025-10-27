@@ -7,6 +7,7 @@
 #include "CGeoLayer.h"
 #include "GeoLinkedList.h"
 #include "CMapProj.h"
+#include "CViewPort.h"
 
 #define WIDTH 600
 #define HEIGHT 800
@@ -33,7 +34,7 @@ void CGeoPolyline::AddPoint(CPoint1* pt)
 	current->next = newNode;
 }
 
-void CGeoPolyline::Draw(const CMapProj* proj)
+void CGeoPolyline::Draw(CViewPort* view, const CMapProj* proj)
 {
     if (!plineHead) return;
 
@@ -43,7 +44,7 @@ void CGeoPolyline::Draw(const CMapProj* proj)
 
     // 经纬度 → 投影坐标
     CPoint1 p = proj->Project(firstPt->x, firstPt->y);
-    moveto(Fx(firstPt->x), Fy(firstPt->y));
+    moveto(Fx(p.x), Fy(p.y));
 
 
     while (current) {
@@ -51,7 +52,7 @@ void CGeoPolyline::Draw(const CMapProj* proj)
         if (!pt) return; 
 
 		CPoint1 p = proj->Project(pt->x, pt->y);
-        lineto(Fx(pt->x), Fy(pt->y));
+        lineto(Fx(p.x), Fy(p.y));
 
         current = current->next;
     }

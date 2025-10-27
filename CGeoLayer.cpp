@@ -13,16 +13,8 @@
 #include "CPoint1.h"
 #include "GeoLinkedList.h"
 #include "CMapProj.h"
+#include "CViewPort.h"
 using namespace std;
-
-
-
-#define WIDTH 600
-#define HEIGHT 800
-
-#define Fx(x) (x - 72.0 ) / (136.0 -72.0 ) *  WIDTH
-#define Fy(y) HEIGHT - (y - 4.0 ) / (54.0 -4.0 ) *  HEIGHT
-
 
 void CGeoLayer::ReadData(const string& filename) {
 
@@ -35,6 +27,7 @@ void CGeoLayer::ReadData(const string& filename) {
 	string line;
 	string ext = filename.substr(filename.find_last_of('.') + 1);
 
+
 	if (ext == "txt" || ext == "TXT") {
 		while (getline(file, line)) { 
 			
@@ -42,8 +35,10 @@ void CGeoLayer::ReadData(const string& filename) {
 			CGeoPoint* obj = new CGeoPoint;
 			istrStream >> obj->id >> obj->x >> obj->y >> obj->chnName;
 
+			viewport.UpdExtent(obj->x, obj->y);
 			AddObject(obj);
 			//delete obj;
+
 		}
 	}
 	else if (ext == "mif" || ext == "MIF") {
@@ -81,6 +76,8 @@ void CGeoLayer::ReadData(const string& filename) {
 					double x, y;
 					if (!(istrStream >> x >> y)) continue;
 					CPoint1* pt = new CPoint1(x, y);
+
+					viewport.UpdExtent(pt->x, pt->y); // 更新范围
 					obj->AddPoint(pt);
 
 				}
@@ -131,18 +128,17 @@ void CGeoLayer::AddObject(CGeoObject* obj) // 从后面add
 
 
 
-void CGeoLayer::DrawLayer(const CMapProj* proj) {
-	initgraph(HEIGHT, WIDTH);
-	setcolor(RGB(255, 0, 0));
+void CGeoLayer::DrawLayer(CViewPort* view, const CMapProj* proj) {
+
+	view->BeginDraw(view->lineColor);
 
 	Node<CGeoObject>* current = m_head;
 	while (current) {
-		current->data->Draw(proj);
+		current->data->Draw(view, proj);
 		current = current->next;
 	}
 
-	(void)_getch();
-	closegraph();
+	view->EndDraw();
 }
 
 void CGeoLayer::PrintLayer() {
