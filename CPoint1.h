@@ -5,6 +5,6 @@ public:
 	int type = 0;
 	double x, y;
 	CPoint1(double x_, double y_) : x(x_), y(y_) {}
-	// ~CPoint1(); // Îö¹¹º¯Êı
+	// ~CPoint1(); // ææ„å‡½æ•°
 };
 

@@ -4,10 +4,13 @@
 class CGeoObject
 {
 public:
-	int type;
-	int count;
+	int type = 0;
+	int count = 0;
 
-	// 因为我不会修改对象状态，所以对CMapProj用const，但是我会修改CViewPort的对象状态，例如里面的xminymin
+	int id = 0;
+	CGeoObject* leftChild = nullptr;   // 宸﹀瓙鑺傜偣
+	CGeoObject* rightChild = nullptr;  // 鍙冲瓙鑺傜偣
+
 	virtual void Draw(CViewPort* view, const CMapProj* proj) = 0; 
 	virtual void Print() = 0;
 

@@ -16,6 +16,8 @@ public:
 
 	void Draw(CViewPort* view, const CMapProj* proj) override ;
 	void Print() override ;
-
+	
+	CGeoPoint() = default;
+	CGeoPoint(const CGeoPoint&);// 拷贝构造函数
 };
 

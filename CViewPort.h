@@ -1,7 +1,7 @@
 #pragma once
 #include <algorithm>
-#include <graphics.h>  // EasyX 图形函数
-#include <conio.h>     // _getch() 函数
+#include <graphics.h>  // EasyX 鍥惧舰鍑芥暟
+#include <conio.h>     // _getch() 鍑芥暟
 class CViewPort
 {
 protected:
@@ -11,7 +11,7 @@ protected:
 public:
 	int lineColor = RGB(255, 0, 0);
 
-    // 投影坐标 -> 屏幕坐标
+    // 鎶曞奖鍧愭爣 -> 灞忓箷
     int Fx(double x) const {
         return static_cast<int>((x - xmin) / (xmax - xmin) * width);
     }
@@ -26,7 +26,7 @@ public:
         ymax = std::max<double>(ymax, y);
     }
 
-    // =================== 封装绘图窗口 ===================
+    // =================== 缁樺浘绐楀彛 ===================
     void BeginDraw(int lineColor) {
         initgraph(width, height);
         setcolor(lineColor);

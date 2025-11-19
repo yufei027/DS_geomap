@@ -1,6 +1,81 @@
+# Visual Studio 临时文件和目录
 .vs/
+.vscode/
+
+# Visual Studio 编译输出目录
 x64/
-*.ipch
+x86/
+Debug/
+Release/
+[Dd]ebug/
+[Rr]elease/
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+
+# Visual Studio 用户特定文件
+*.vcxproj.user
+*.vcxproj.user.*
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Visual Studio 编译产物
+*.obj
+*.exe
+*.dll
+*.lib
+*.pdb
+*.ilk
+*.idb
+*.ipdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tlh
+*.tmp
+*.tmp_proj
+*.log
+*.vspscc
+*.vssscc
+.builds
+*.pidb
+*.svclog
+*.scc
+
+# Visual Studio 数据库和智能感知文件
 *.VC.db
+*.VC.VC.opendb
 *.sdf
+*.opensdf
+*.db-shm
+*.db-wal
+*.ipch
+*.aps
+*.ncb
+*.opendb
+*.cachefile
+
+# Visual Studio 跟踪日志
+*.tlog/
+*.lastbuildstate
+*.unsuccessfulbuild
+
+# Visual Studio 其他文件
+*.FileListAbsolute.txt
+*.Build.CppClean.log
+*.exe.recipe
+[Bb]uildLog.htm
+
+# 其他临时文件
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# 测试文件（如果不需要提交）
 test.cpp

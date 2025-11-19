@@ -36,7 +36,7 @@
     <ClInclude Include="GeoLinkedList.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="CProjMercator.h">
+    <ClInclude Include="CWebMercator.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="CViewPort.h">
@@ -65,7 +65,7 @@
     <ClCompile Include="CMapProj.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="CProjMercator.cpp">
+    <ClCompile Include="CWebMercator.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="CViewPort.cpp">

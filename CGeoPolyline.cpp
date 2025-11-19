@@ -9,13 +9,6 @@
 #include "CMapProj.h"
 #include "CViewPort.h"
 
-#define WIDTH 600
-#define HEIGHT 800
-
-#define Fx(x) (x - 72.0 ) / (136.0 -72.0 ) *  WIDTH
-#define Fy(y) HEIGHT - (y - 4.0 ) / (54.0 -4.0 ) *  HEIGHT
-
-
 
 void CGeoPolyline::AddPoint(CPoint1* pt)
 {
@@ -42,9 +35,8 @@ void CGeoPolyline::Draw(CViewPort* view, const CMapProj* proj)
     CPoint1* firstPt = current->data;
     if (!firstPt) return;
 
-    // ¾­Î³¶È ¡ú Í¶Ó°×ø±ê
     CPoint1 p = proj->Project(firstPt->x, firstPt->y);
-    moveto(Fx(p.x), Fy(p.y));
+    moveto(view->Fx(p.x), view->Fy(p.y));
 
 
     while (current) {
@@ -52,7 +44,7 @@ void CGeoPolyline::Draw(CViewPort* view, const CMapProj* proj)
         if (!pt) return; 
 
 		CPoint1 p = proj->Project(pt->x, pt->y);
-        lineto(Fx(p.x), Fy(p.y));
+        lineto(view->Fx(p.x), view->Fy(p.y));
 
         current = current->next;
     }
@@ -85,5 +77,5 @@ void CGeoPolyline::ReverseLinkedList()
 		prev = current;
 		current = next;
 	}
-	plineHead = prev; // ¸üĞÂÍ·Ö¸Õë
+	plineHead = prev; // æ›´æ–°å¤´æŒ‡é’ˆ
 }

@@ -13,11 +13,13 @@ public:
 	int type = 0;
 	int pointCount = 0;
 
-	Node<CPoint1>* plineHead;  // ÓÃÁ´±í´æ´¢ÕÛÏßµã
+	Node<CPoint1>* plineHead = nullptr;  // ç”¨é“¾è¡¨å­˜å‚¨æŠ˜çº¿ç‚¹
 
-	void AddPoint(CPoint1* pt); // Ìí¼Óµãµ½Á´±í
+	void AddPoint(CPoint1* pt); // æ·»åŠ ç‚¹åˆ°é“¾è¡¨
+
 	void Draw(CViewPort* view, const CMapProj* proj) override;
 	void Print() override;
-	void ReverseLinkedList(); // ·´×ªÕÛÏßµãÁ´±í
+
+	void ReverseLinkedList(); // åè½¬æŠ˜çº¿ç‚¹é“¾è¡¨
 };
 

@@ -4,10 +4,19 @@
 
 template<typename T>
 struct Node {
-	T* data; // ָ��object����
-	Node* next; // ָ����һ���ڵ�
+	T* data; // 指向object对象
+	Node* next; // 指向下一个节点
 
 
 	Node(T* d) : data(d), next(nullptr) {}
 };
 
+
+namespace BTNode {
+    template<typename T>
+    struct BTreeNode {
+        T* data;                    // 存放的数据
+        BTreeNode* leftChild = nullptr;   // 左子节点
+        BTreeNode* rightChild = nullptr;  // 右子节点
+    };
+}
