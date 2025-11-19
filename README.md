@@ -1,9 +1,6 @@
 # Simple GISData Structure Visualization 
 
 
-**基于 C++ 的 GIS 数据结构和可视化**
-
-
 
 ---
 
